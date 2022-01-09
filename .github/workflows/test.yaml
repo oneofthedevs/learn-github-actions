@@ -1,0 +1,12 @@
+# Name of Action
+name: "First Github Action"
+# When will this action executed
+on: [push]
+# Jobs - Jobs aren't written in an array format, so they don't necessarily run in sequence
+jobs:
+  print-hello-world:
+    # OS image to run action on
+    runs-on: ubuntu-latest
+    # Steps - Each step will be run sequentially
+    steps:
+      - run: echo "Hello World!"

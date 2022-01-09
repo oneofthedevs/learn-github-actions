@@ -4,9 +4,17 @@ name: "First Github Action"
 on: [push]
 # Jobs - Jobs aren't written in an array format, so they don't necessarily run in sequence
 jobs:
-  print-hello-world:
+  JOB-1:
     # OS image to run action on
     runs-on: ubuntu-latest
     # Steps - Each step will be run sequentially
     steps:
-      - run: echo "Hello World!"
+      - run: echo "Job 1-1"
+      - run: echo "Job 1-2"
+  JOB-2:
+    # OS image to run action on
+    runs-on: ubuntu-latest
+    # Steps - Each step will be run sequentially
+    steps:
+      - run: echo "Job 2-1"
+      - run: echo "Job 2-2"

@@ -10,5 +10,7 @@ jobs:
           node-version: 14
       - name: "Fetching Code from current repo"
         uses: actions/checkout@v2
+      - name: "Installing dependencies"
+        run: "npm install --production"
       - name: "Building the project"
         run: "npm run build"

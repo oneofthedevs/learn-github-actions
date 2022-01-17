@@ -1,8 +1,13 @@
 name: "PUSH: Build Application"
 on: [push, pull_request]
 jobs:
+  # Different jobs runs on different enviroments parllel to each other, if you want to run then simutaneously then we need to use needs keyword
   build-job:
     runs-on: ubuntu-latest
+    # Defining output parameters to share data between jobs
+    outputs:
+      # Syntex: steps.<step-id>.outputs.<variable-name>
+      text: ${{ steps.final-step.outputs.text }}
     env:
       VERCEL_PROJECT_ID: ${{ secrets.VERCEL_PROJECT_ID }}
       VERCEL_ORG_ID: ${{ secrets.VERCEL_ORG_ID }}
@@ -27,10 +32,18 @@ jobs:
           cd build
           yarn deploy-vc
       - name: DONE
-        run: echo "It's Done, it will always be done"
+        id: final-step
+        run: |
+          echo "::set-output name=text::hello-there-from-build-job" 
+          echo "It's Done, it will always be done"
   test-job:
+    # This job will only run after build is completed
     needs: build-job
     runs-on: ubuntu-latest
+    env:
+      # Defining a veriable which we'll recieve from dependent job
+      # Syntex: needs.<job-name>.outputs.<variable-name>
+      BUILD_OUTPUT: ${{ needs.build-job.outputs.text }}
     steps:
       - name: Say something
         run: echo "Please go to sleep"

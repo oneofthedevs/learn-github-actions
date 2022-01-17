@@ -7,7 +7,11 @@ jobs:
       - name: Fetching Node Image
         uses: actions/setup-node@v2
         with:
-          node-version: 14
+          node-version: 16
+      # Why fetch?
+      # Github Actions runs on a different enviroment which is not necessarily connected with the repo, think of it like a docker container
+      # So in order to deploy the code, first fetch (clond) the repo in this github action enviroment and then create a build (Artifect)
+      # which will later on be sent to Vercel (in this case, can be AWS or DigitalOcean, etc...)
       - name: Fetching Code from current repo
         uses: actions/checkout@v2
       - name: Installing dependencies

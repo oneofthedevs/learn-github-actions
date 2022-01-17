@@ -28,3 +28,9 @@ jobs:
           yarn deploy-vc
       - name: DONE
         run: echo "It's Done, it will always be done"
+  test-job:
+    needs: build-job
+    runs-on: ubuntu-latest
+    steps:
+      - name: Say something
+        run: echo "Please go to sleep"

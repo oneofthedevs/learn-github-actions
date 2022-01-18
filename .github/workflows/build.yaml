@@ -1,5 +1,5 @@
 name: "PUSH: Build Application"
-on: [push, pull_request]
+on: [push]
 jobs:
   # Different jobs runs on different enviroments parllel to each other, if you want to run then simutaneously then we need to use needs keyword
   build-job:
@@ -47,3 +47,18 @@ jobs:
     steps:
       - name: Say something
         run: echo "Please go to sleep"
+  #These 2 jobs will run parallel to build-job as they are not dependent on anyone
+  parallel-job-1:
+    # OS image to run action on
+    runs-on: ubuntu-latest
+    # Steps - Each step will be run sequentially
+    steps:
+      - run: echo "Job 1-1"
+      - run: echo "Job 1-2"
+  parallel-job-2:
+    # OS image to run action on
+    runs-on: ubuntu-latest
+    # Steps - Each step will be run sequentially
+    steps:
+      - run: echo "Job 2-1"
+      - run: echo "Job 2-2"
